@@ -4,8 +4,11 @@
  * This hook is used to handle social authentication.
  * It is useful when you need to handle social authentication.
  * Apple Auth: https://github.com/invertase/react-native-apple-authentication
+ * Apple Auth Docs: https://sanjanahumanintech.medium.com/sign-in-with-apple-in-react-native-b30e1c8ff8e0
  * Google Auth: https://github.com/react-native-google-signin/google-signin
+ * Google Auth Docs: https://ibjects.medium.com/google-signin-tutorial-for-react-native-81a57fb67b18
  * Facebook Auth: https://github.com/facebook/react-native-fbsdk-next
+ * Facebook Auth Docs: https://mehrankhandev.medium.com/integrating-fbsdk-facebook-login-in-react-native-7b7600ce74a7
  * @param onSuccess - The function to call when the social authentication is successful.
  */
 
