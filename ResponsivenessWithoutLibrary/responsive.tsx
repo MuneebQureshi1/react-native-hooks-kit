@@ -23,3 +23,12 @@ export const mvs = (size: number, factor: number = Platform.OS === "android" ? 0
   const result = size + (vs(size) - size) * factor;
   return Math.round(result * 100) / 100;
 };
+
+// ✅ Font scaling
+export const fontScale = (size: number) => {
+  const scaleFactor = width / guidelineBaseWidth;
+  // Different adjusted factor for iOS vs Android
+  const adjustedFactor = Platform.OS === "ios" ? 0.92 : 0.85;
+  const scaled = size * scaleFactor * adjustedFactor;
+  return Math.round(scaled);
+};
