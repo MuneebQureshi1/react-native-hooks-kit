@@ -1,4 +1,4 @@
-![Custom Hooks Banner](./assets/banner.png)
+<img src="./assets/banner.png" alt="Custom Hooks Banner" style="width: 100%;" />
 
 # 🪝 Custom React & React Native Hooks
 
