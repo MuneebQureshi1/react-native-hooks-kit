@@ -1,3 +1,5 @@
+![Custom Hooks Banner](./assets/banner.png)
+
 # 🪝 Custom React & React Native Hooks
 
 This repository contains a collection of reusable and modular **custom hooks** built for both React and React Native applications. These hooks abstract common functionality to help you write cleaner and more maintainable code.
