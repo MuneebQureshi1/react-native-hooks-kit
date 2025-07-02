@@ -8,6 +8,13 @@
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" style="height:28px; vertical-align: middle;" />
   <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white" style="height:28px; vertical-align: middle;" />
 </p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white" style="height:28px; vertical-align: middle;" />
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white" style="height:28px; vertical-align: middle;" />
+</p>
+<p align="center">
+   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" style="height:28px; vertical-align: middle;" />
+</p>
 
 
 # 🪝 Custom React & React Native Hooks
