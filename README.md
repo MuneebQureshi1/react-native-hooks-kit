@@ -1,9 +1,51 @@
 # 🪝 Custom React & React Native Hooks
 
-This repository contains a collection of reusable and modular **custom hooks** built for both React and React Native applications. These hooks help in writing cleaner and more efficient code by abstracting common logic.
+This repository contains a collection of reusable and modular **custom hooks** built for both React and React Native applications. These hooks abstract common functionality to help you write cleaner and more maintainable code.
 
 ---
 
+## 📁 Available Hooks
+
+### 🔄 **ApiCalling/**
+A reusable hook for performing API calls with Axios. Centralizes logic for loading, error handling, and responses.
+
+### 🔙 **DisableAndroidBackButton/**
+Hook to disable or customize the Android back button behavior — useful in authentication flows, modal screens, or splash screens.
+
+### ⚠️ **ForceUpdate/**
+Checks app version using `react-native-version-check`. Can force users to update if they are on an older version.
+
+### 🙈 **HideTabBar/**
+Allows hiding the bottom tab bar dynamically in specific screens using React Navigation.
+
+### 🖼 **ImagePickerInExpo/**
+Hook built using `expo-image-picker` to allow image selection from camera or gallery.
+
+### 💳 **InAppPurchases/**
+Handles in-app subscriptions or one-time purchases using `react-native-iap`.
+
+### 🔐 **IntercepterWithoutRefreshToken/**
+Axios interceptor to attach authorization headers and handle request/response logic **without token refreshing**.
+
+### ♻️ **IntercepterWithRefreshToken/**
+Axios interceptor that includes **refresh token logic**. Automatically retries requests after refreshing expired access tokens.
+
+### 🌐 **InternetStatus/**
+A hook that tracks internet connectivity using `@react-native-community/netinfo`. Provides `isConnected` and `isInternetReachable` flags.
+
+### ⌨️ **KeyboardVisibilityCheck/**
+Tracks keyboard visibility and height. Useful for dynamically adjusting UI based on keyboard presence.
+
+### 📱 **ResponsivenessWithLibrary/**
+Implements responsiveness using libraries like `react-native-responsive-screen`.
+
+### 📐 **ResponsivenessWithoutLibrary/**
+Responsive layout without using any third-party library. Based on `Dimensions` and percentage-based calculations.
+
+### 🔐 **SocailAuths/**
+Hook for managing social logins such as Google, Facebook, or Apple (depending on platform and libraries used).
+
+---
 
 ## ✅ Contributing
 
