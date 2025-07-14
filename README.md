@@ -73,6 +73,16 @@ Responsive layout without using any third-party library. Based on `Dimensions` a
 
 Hook for managing social logins such as Google, Facebook, or Apple (depending on platform and libraries used).
 
+### 📲 **FirebaseCloudMessaging/**
+Custom hook to handle Firebase Cloud Messaging:
+- Gets FCM token
+- Requests notification permissions
+- Handles messages in foreground, background, and quit states  
+Includes alert display for foreground notifications.  
+
+🔗 Docs:
+- [React Native Firebase Messaging](https://rnfirebase.io/messaging/usage)  
+
 ---
 
 ## ✅ Contributing
