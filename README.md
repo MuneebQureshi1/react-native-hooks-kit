@@ -83,7 +83,7 @@ Includes alert display for foreground notifications.
 🔗 Docs:
 - [React Native Firebase Messaging](https://rnfirebase.io/messaging/usage)  
 
-### 🔏 **BiometricAuth/**
+### 🔏 **BiometricAuthentication/**
 Authenticate users using biometric methods like Fingerprint, Face ID, or Iris.
 
 - Returns available supported types (`fingerprint`, `face`, `iris`)
