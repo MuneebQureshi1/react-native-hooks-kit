@@ -83,6 +83,14 @@ Includes alert display for foreground notifications.
 🔗 Docs:
 - [React Native Firebase Messaging](https://rnfirebase.io/messaging/usage)  
 
+### 🔏 **BiometricAuth/**
+Authenticate users using biometric methods like Fingerprint, Face ID, or Iris.
+
+- Returns available supported types (`fingerprint`, `face`, `iris`)
+- Provides three dedicated methods for individual authentication
+- Tracks whether the user is authenticated
+- Uses `expo-local-authentication` (✅ works in **Expo Go**)
+
 ---
 
 ## ✅ Contributing
