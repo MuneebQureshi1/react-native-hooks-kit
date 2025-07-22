@@ -9,6 +9,7 @@
  * Google Auth Docs: https://ibjects.medium.com/google-signin-tutorial-for-react-native-81a57fb67b18
  * Facebook Auth: https://github.com/facebook/react-native-fbsdk-next
  * Facebook Auth Docs: https://mehrankhandev.medium.com/integrating-fbsdk-facebook-login-in-react-native-7b7600ce74a7
+ * Facebook Auth Video Tutorial (Expo): https://www.youtube.com/watch?v=VADy1X8NHeo
  * @param onSuccess - The function to call when the social authentication is successful.
  */
 
