@@ -91,6 +91,14 @@ Authenticate users using biometric methods like Fingerprint, Face ID, or Iris.
 - Tracks whether the user is authenticated
 - Uses `expo-local-authentication` (✅ works in **Expo Go**)
 
+### 🖼️ **PreloadLocalImages/**
+Hook to preload local images before displaying them in your app.
+
+- Uses `expo-asset` to preload images efficiently
+- Returns `isLoaded` state to track loading progress
+- Improves app performance by caching images upfront
+- Perfect for splash screens or apps with heavy image content
+
 ---
 
 ## ✅ Contributing
