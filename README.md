@@ -99,6 +99,16 @@ Hook to preload local images before displaying them in your app.
 - Improves app performance by caching images upfront
 - Perfect for splash screens or apps with heavy image content
 
+### 📊 **CSVUploadHook/**
+Hook for handling CSV file upload and parsing in React Native/Expo applications.
+
+- Pick CSV files from device using `expo-document-picker`
+- Parse CSV files and extract headers and rows
+- Upload CSV files to server with progress tracking
+- Supports file size validation and MIME type checking
+- Includes callbacks for success, error, and progress events
+- Uses `axios` for file uploads with FormData
+
 ---
 
 ## ✅ Contributing
