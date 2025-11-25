@@ -109,6 +109,16 @@ Hook for handling CSV file upload and parsing in React Native/Expo applications.
 - Includes callbacks for success, error, and progress events
 - Uses `axios` for file uploads with FormData
 
+### 💳 **Stripe/**
+Hook for handling Stripe payment sheet integration in React Native applications.
+
+- Integrates with Stripe Payment Sheet using `@stripe/stripe-react-native`
+- Configurable payment intent creation via custom backend function
+- Customizable appearance (colors, shapes, styling)
+- Supports delayed payment methods
+- Includes loading states and error handling
+- Flexible callback system for success and failure scenarios
+
 ---
 
 ## ✅ Contributing
