@@ -119,6 +119,18 @@ Hook for handling Stripe payment sheet integration in React Native applications.
 - Includes loading states and error handling
 - Flexible callback system for success and failure scenarios
 
+### 📡 **PusherReverbHook/**
+Hook for real-time WebSocket communication using Pusher/Reverb in React Native applications.
+
+- Integrates with Laravel Echo and Pusher using `laravel-echo` and `pusher-js/react-native`
+- Supports both public and private channels
+- Configurable channel subscription with flexible naming (string patterns or functions)
+- Multiple event listeners per channel
+- Connection state tracking and callbacks
+- Optional authentication token support
+- Configurable logging and error handling
+- Automatic cleanup on unmount
+
 ---
 
 ## ✅ Contributing
