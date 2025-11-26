@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom React & React Native Hooks - Reusable Components Library</title>
+    <meta name="description" content="A comprehensive collection of reusable custom hooks for React and React Native applications. Simplify your development with pre-built hooks for API calls, authentication, payments, and more.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #61DAFB;
+            --secondary-color: #20232A;
+            --accent-color: #007ACC;
+            --text-dark: #2C3E50;
+            --text-light: #7F8C8D;
+            --bg-light: #F8F9FA;
+            --bg-white: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-primary: linear-gradient(135deg, #61DAFB 0%, #007ACC 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 2rem;
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('./assets/banner.avif') center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--secondary-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 1rem;
+            animation: fadeInUp 1.4s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            background: var(--bg-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #E9ECEF;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Hooks Section */
+        .hooks {
+            padding: 5rem 2rem;
+            background: var(--bg-light);
+        }
+
+        .hooks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .hook-card {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .hook-card:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-lg);
+            border-left-color: var(--accent-color);
+        }
+
+        .hook-card h4 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hook-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .hook-emoji {
+            font-size: 1.3rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 2rem;
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 2rem;
+            background: var(--bg-white);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            padding: 3rem 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hooks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            background: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">🪝 CustomHooks</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#hooks">Hooks</a></li>
+                <li><a href="#stats">Stats</a></li>
+                <li><a href="#cta">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🪝 Custom React & React Native Hooks</h1>
+            <p>A comprehensive collection of reusable custom hooks to simplify your development workflow</p>
+            <div class="badges">
+                <span class="badge">⚛️ React</span>
+                <span class="badge">📱 React Native</span>
+                <span class="badge">📘 TypeScript</span>
+                <span class="badge">🚀 Expo</span>
+            </div>
+            <a href="https://github.com" class="cta-button">⭐ Star on GitHub</a>
+            <a href="#hooks" class="cta-button" style="background: transparent; border: 2px solid white; color: white;">Explore Hooks</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Why Custom Hooks?</h2>
+            <p class="section-subtitle">Build faster, cleaner, and more maintainable applications</p>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">♻️</div>
+                    <h3>Reusable Logic</h3>
+                    <p>Write once, use everywhere. Share common functionality across your entire application without code duplication.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🧹</div>
+                    <h3>Clean Code</h3>
+                    <p>Keep your components focused on rendering while hooks handle complex logic and side effects.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Faster Development</h3>
+                    <p>Skip boilerplate code and focus on building features. Pre-built hooks for common use cases.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Easy to Customize</h3>
+                    <p>All hooks are modular and well-documented. Modify them to fit your specific needs.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📚</div>
+                    <h3>Well Documented</h3>
+                    <p>Each hook includes usage examples and clear documentation to help you get started quickly.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Type Safe</h3>
+                    <p>Built with TypeScript for better developer experience and fewer runtime errors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hooks Section -->
+    <section class="hooks" id="hooks">
+        <div class="container">
+            <h2 class="section-title">Available Hooks</h2>
+            <p class="section-subtitle">Browse our collection of production-ready custom hooks</p>
+            <div class="hooks-grid">
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">🔄</span> API Calling</h4>
+                    <p>Reusable hooks for performing API calls with Axios. Centralizes logic for loading, error handling, and responses.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">🔐</span> Biometric Authentication</h4>
+                    <p>Authenticate users using biometric methods like Fingerprint, Face ID, or Iris with expo-local-authentication.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">📊</span> CSV Upload</h4>
+                    <p>Handle CSV file upload and parsing in React Native/Expo applications with progress tracking and validation.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">🔙</span> Disable Android Back Button</h4>
+                    <p>Disable or customize the Android back button behavior in authentication flows, modals, or splash screens.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">📲</span> Firebase Cloud Messaging</h4>
+                    <p>Handle FCM tokens, request permissions, and manage notifications in foreground, background, and quit states.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">⚠️</span> Force Update</h4>
+                    <p>Check app version and force users to update if they are on an older version using react-native-version-check.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">🙈</span> Hide Tab Bar</h4>
+                    <p>Dynamically hide the bottom tab bar in specific screens using React Navigation.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">🖼️</span> Image Picker</h4>
+                    <p>Select images from camera or gallery using expo-image-picker with full customization options.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">💳</span> In-App Purchases</h4>
+                    <p>Handle in-app subscriptions or one-time purchases using react-native-iap with complete purchase flow.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">🔐</span> Axios Interceptors</h4>
+                    <p>Attach authorization headers and handle requests/responses with or without refresh token logic.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">🌐</span> Internet Status</h4>
+                    <p>Track internet connectivity using @react-native-community/netinfo with real-time connection status.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">⌨️</span> Keyboard Visibility</h4>
+                    <p>Track keyboard visibility and height to dynamically adjust UI based on keyboard presence.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">🖼️</span> Preload Local Images</h4>
+                    <p>Preload local images before displaying them using expo-asset to improve app performance and caching.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">📡</span> Pusher/Reverb</h4>
+                    <p>Real-time WebSocket communication using Pusher/Reverb with Laravel Echo support for public and private channels.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">📐</span> Responsiveness</h4>
+                    <p>Implement responsive layouts with or without third-party libraries using Dimensions and percentage calculations.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">🔐</span> Social Auth</h4>
+                    <p>Manage social logins such as Google, Facebook, or Apple with platform-specific implementations.</p>
+                </div>
+                <div class="hook-card fade-in">
+                    <h4><span class="hook-emoji">💳</span> Stripe Payment</h4>
+                    <p>Integrate Stripe Payment Sheet with @stripe/stripe-react-native including customizable appearance and callbacks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" id="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <h3>17+</h3>
+                    <p>Custom Hooks</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>100%</h3>
+                    <p>TypeScript</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>⚛️</h3>
+                    <p>React & React Native</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>🚀</h3>
+                    <p>Production Ready</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <h2>Ready to Get Started?</h2>
+            <p>Start using these custom hooks in your projects today and accelerate your development</p>
+            <a href="https://github.com/MuneebQureshi1/CustomHooks" class="cta-button" style="background: var(--gradient-primary); color: white; border: none;">View on GitHub</a>
+            <a href="https://github.com/MuneebQureshi1/CustomHooks/blob/main/README.md" class="cta-button" style="background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color);">Browse Documentation</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#features">Features</a>
+                <a href="#hooks">Hooks</a>
+                <a href="https://github.com/">GitHub</a>
+                <a href="https://github.com">Documentation</a>
+                <a href="https://github.com">Contributing</a>
+            </div>
+            <div class="footer-bottom">
+                <p>Made with ❤️ for the React & React Native community</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Keep building. Keep learning. Happy Coding! 💻🚀</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        ↑
+    </div>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Add some parallax effect to hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < hero.offsetHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - (scrolled / hero.offsetHeight) * 0.5;
+            }
+        });
+    </script>
+</body>
+</html>
