@@ -14,23 +14,49 @@
 
         :root {
             --primary-color: #61DAFB;
-            --secondary-color: #20232A;
+            --secondary-color: #1a1a1a;
             --accent-color: #007ACC;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-primary: linear-gradient(135deg, #61DAFB 0%, #007ACC 100%);
+        }
+
+        /* Light Theme (Default) */
+        [data-theme="light"] {
             --text-dark: #2C3E50;
             --text-light: #7F8C8D;
             --bg-light: #F8F9FA;
             --bg-white: #FFFFFF;
+            --bg-darker: #FFFFFF;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-primary: linear-gradient(135deg, #61DAFB 0%, #007ACC 100%);
+            --border-color: #E9ECEF;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --code-bg: #F8F9FA;
+            --code-text: #2c3e50;
+        }
+
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --text-dark: #E0E0E0;
+            --text-light: #B0B0B0;
+            --bg-light: #2a2a2a;
+            --bg-white: #1e1e1e;
+            --bg-darker: #151515;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --border-color: #333333;
+            --nav-bg: rgba(30, 30, 30, 0.95);
+            --code-bg: #151515;
+            --code-text: #E0E0E0;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
+            background-color: var(--bg-darker);
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Navigation */
@@ -38,12 +64,13 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--nav-bg);
             backdrop-filter: blur(10px);
             box-shadow: var(--shadow);
             z-index: 1000;
             padding: 1rem 0;
             transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
         }
 
         nav.scrolled {
@@ -83,6 +110,30 @@
 
         .nav-links a:hover {
             color: var(--primary-color);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: var(--bg-white);
+            border: 2px solid var(--border-color);
+            color: var(--text-dark);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: scale(1.1);
         }
 
         /* Hero Section */
@@ -203,7 +254,7 @@
             border-radius: 15px;
             box-shadow: var(--shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #E9ECEF;
+            border: 1px solid var(--border-color);
         }
 
         .feature-card:hover {
@@ -247,6 +298,7 @@
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
             border-left: 4px solid var(--primary-color);
+            border: 1px solid var(--border-color);
         }
 
         .hook-card:hover {
@@ -319,10 +371,11 @@
 
         /* Footer */
         footer {
-            background: var(--secondary-color);
-            color: white;
+            background: var(--bg-darker);
+            color: var(--text-dark);
             padding: 3rem 2rem 1.5rem;
             text-align: center;
+            border-top: 1px solid var(--border-color);
         }
 
         .footer-content {
@@ -436,19 +489,265 @@
             transform: translateY(-5px);
             background: var(--accent-color);
         }
+
+        /* Code blocks styling */
+        pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            border: 1px solid var(--border-color);
+            margin: 1rem 0;
+            color: var(--code-text);
+        }
+
+        code {
+            font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+            background: rgba(97, 218, 251, 0.2);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #61DAFB;
+        }
+
+        /* About Developer Section Links */
+        #about-developer a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hook Page Styles */
+        .hook-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--bg-white);
+            z-index: 2000;
+            overflow-y: auto;
+            overflow-x: hidden;
+            animation: fadeIn 0.3s ease;
+            display: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .hook-page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            padding-bottom: 4rem;
+        }
+
+        .hook-page-header {
+            padding: 2rem 0;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: var(--accent-color);
+            transform: translateX(-3px);
+        }
+
+        .hook-page-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            flex: 1;
+        }
+
+        .hook-page-body {
+            padding: 1rem 0;
+        }
+
+        .hook-page-loading {
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .spinner {
+            border: 4px solid var(--code-bg);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hook-info-section {
+            margin-bottom: 2rem;
+        }
+
+        .hook-info-section h3 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .hook-info-section p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--code-bg);
+            border-radius: 8px 8px 0 0;
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+        }
+
+        .file-name {
+            font-family: 'Courier New', monospace;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-color);
+        }
+
+        .hook-info-section pre {
+            margin: 0;
+            border-radius: 0 0 8px 8px;
+            max-height: none;
+            overflow: visible;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            color: #E0E0E0;
+        }
+
+        /* Hide main content when on hook page */
+        body.hook-page-active #main-content {
+            display: none;
+        }
+
+        body.hook-page-active .hook-page {
+            display: block !important;
+        }
+
+        body.hook-page-active {
+            overflow: hidden;
+        }
+
+        .hook-info-section pre code {
+            background: transparent;
+            padding: 0;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #E0E0E0;
+        }
+
+        .dependency-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background: var(--code-bg);
+            border-radius: 20px;
+            margin: 0.3rem;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+                max-height: 95vh;
+            }
+
+            .modal-header {
+                padding: 1rem 1.5rem;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Main Content -->
+    <div id="main-content">
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
             <div class="logo">🪝 CustomHooks</div>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#hooks">Hooks</a></li>
-                <li><a href="#stats">Stats</a></li>
-                <li><a href="#cta">Get Started</a></li>
-            </ul>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#hooks">Hooks</a></li>
+                    <li><a href="#stats">Stats</a></li>
+                    <li><a href="#about-developer">About</a></li>
+                    <li><a href="#contributing">Contributing</a></li>
+                    <li><a href="#cta">Get Started</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -463,7 +762,7 @@
                 <span class="badge">📘 TypeScript</span>
                 <span class="badge">🚀 Expo</span>
             </div>
-            <a href="https://github.com" class="cta-button">⭐ Star on GitHub</a>
+            <a href="https://github.com/MuneebQureshi1/CustomHooks" class="cta-button">⭐ Star on GitHub</a>
             <a href="#hooks" class="cta-button" style="background: transparent; border: 2px solid white; color: white;">Explore Hooks</a>
         </div>
     </section>
@@ -514,71 +813,71 @@
             <h2 class="section-title">Available Hooks</h2>
             <p class="section-subtitle">Browse our collection of production-ready custom hooks</p>
             <div class="hooks-grid">
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="api-calling" style="cursor: pointer;">
                     <h4><span class="hook-emoji">🔄</span> API Calling</h4>
                     <p>Reusable hooks for performing API calls with Axios. Centralizes logic for loading, error handling, and responses.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="biometric-auth" style="cursor: pointer;">
                     <h4><span class="hook-emoji">🔐</span> Biometric Authentication</h4>
                     <p>Authenticate users using biometric methods like Fingerprint, Face ID, or Iris with expo-local-authentication.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="csv-upload" style="cursor: pointer;">
                     <h4><span class="hook-emoji">📊</span> CSV Upload</h4>
                     <p>Handle CSV file upload and parsing in React Native/Expo applications with progress tracking and validation.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="disable-back" style="cursor: pointer;">
                     <h4><span class="hook-emoji">🔙</span> Disable Android Back Button</h4>
                     <p>Disable or customize the Android back button behavior in authentication flows, modals, or splash screens.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="fcm" style="cursor: pointer;">
                     <h4><span class="hook-emoji">📲</span> Firebase Cloud Messaging</h4>
                     <p>Handle FCM tokens, request permissions, and manage notifications in foreground, background, and quit states.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="force-update" style="cursor: pointer;">
                     <h4><span class="hook-emoji">⚠️</span> Force Update</h4>
                     <p>Check app version and force users to update if they are on an older version using react-native-version-check.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="hide-tabbar" style="cursor: pointer;">
                     <h4><span class="hook-emoji">🙈</span> Hide Tab Bar</h4>
                     <p>Dynamically hide the bottom tab bar in specific screens using React Navigation.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="image-picker" style="cursor: pointer;">
                     <h4><span class="hook-emoji">🖼️</span> Image Picker</h4>
                     <p>Select images from camera or gallery using expo-image-picker with full customization options.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="in-app-purchase" style="cursor: pointer;">
                     <h4><span class="hook-emoji">💳</span> In-App Purchases</h4>
                     <p>Handle in-app subscriptions or one-time purchases using react-native-iap with complete purchase flow.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="axios-interceptor" style="cursor: pointer;">
                     <h4><span class="hook-emoji">🔐</span> Axios Interceptors</h4>
                     <p>Attach authorization headers and handle requests/responses with or without refresh token logic.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="internet-status" style="cursor: pointer;">
                     <h4><span class="hook-emoji">🌐</span> Internet Status</h4>
                     <p>Track internet connectivity using @react-native-community/netinfo with real-time connection status.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="keyboard" style="cursor: pointer;">
                     <h4><span class="hook-emoji">⌨️</span> Keyboard Visibility</h4>
                     <p>Track keyboard visibility and height to dynamically adjust UI based on keyboard presence.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="preload-images" style="cursor: pointer;">
                     <h4><span class="hook-emoji">🖼️</span> Preload Local Images</h4>
                     <p>Preload local images before displaying them using expo-asset to improve app performance and caching.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="pusher" style="cursor: pointer;">
                     <h4><span class="hook-emoji">📡</span> Pusher/Reverb</h4>
                     <p>Real-time WebSocket communication using Pusher/Reverb with Laravel Echo support for public and private channels.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="responsiveness" style="cursor: pointer;">
                     <h4><span class="hook-emoji">📐</span> Responsiveness</h4>
                     <p>Implement responsive layouts with or without third-party libraries using Dimensions and percentage calculations.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="social-auth" style="cursor: pointer;">
                     <h4><span class="hook-emoji">🔐</span> Social Auth</h4>
                     <p>Manage social logins such as Google, Facebook, or Apple with platform-specific implementations.</p>
                 </div>
-                <div class="hook-card fade-in">
+                <div class="hook-card fade-in" data-hook="stripe" style="cursor: pointer;">
                     <h4><span class="hook-emoji">💳</span> Stripe Payment</h4>
                     <p>Integrate Stripe Payment Sheet with @stripe/stripe-react-native including customizable appearance and callbacks.</p>
                 </div>
@@ -610,6 +909,103 @@
         </div>
     </section>
 
+    <!-- About Developer Section -->
+    <section class="features" id="about-developer" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 5rem 2rem;">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">👋 Meet the Developer</h2>
+            <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.9);">The mind behind CustomHooks</p>
+            
+            <div style="max-width: 800px; margin: 3rem auto;">
+                <div class="feature-card fade-in" style="background: var(--bg-white); color: var(--text-dark); text-align: center; padding: 3rem 2rem; border: 1px solid var(--border-color);">
+                    <div style="width: 150px; height: 150px; margin: 0 auto 2rem; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; font-size: 4rem; box-shadow: var(--shadow-lg);">
+                        👨‍💻
+                    </div>
+                    <h3 style="font-size: 2rem; margin-bottom: 1rem; color: var(--text-dark);">Muneeb Qureshi</h3>
+                    <p style="font-size: 1.2rem; color: var(--text-light); margin-bottom: 2rem; font-style: italic;">
+                        Full Stack Developer & React Native Enthusiast
+                    </p>
+                    <p style="line-height: 1.8; color: var(--text-dark); margin-bottom: 2rem; text-align: left;">
+                        Hello! I'm <strong>Muneeb Qureshi</strong>, the creator of CustomHooks. I'm passionate about building 
+                        reusable, efficient, and well-documented code that helps developers save time and write cleaner applications.
+                    </p>
+                    <p style="line-height: 1.8; color: var(--text-dark); margin-bottom: 2rem; text-align: left;">
+                        This project was born from my experience developing React and React Native applications. I noticed 
+                        that many developers (including myself) were writing similar logic repeatedly. CustomHooks is my 
+                        contribution to the community - a collection of battle-tested hooks that you can use in your projects.
+                    </p>
+                    
+                    <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid var(--border-color);">
+                        <a href="https://github.com/MuneebQureshi1" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--gradient-primary); color: white; text-decoration: none; border-radius: 25px; font-weight: 600; transition: transform 0.3s ease; box-shadow: var(--shadow);">
+                            <span>🐙</span> GitHub
+                        </a>
+                        <a href="https://github.com/MuneebQureshi1/CustomHooks" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--bg-white); color: var(--primary-color); text-decoration: none; border-radius: 25px; font-weight: 600; border: 2px solid var(--primary-color); transition: transform 0.3s ease;">
+                            <span>⭐</span> Star Project
+                        </a>
+                        <a href="https://linktr.ee/Muneeb_Qureshi" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--bg-white); color: var(--accent-color); text-decoration: none; border-radius: 25px; font-weight: 600; border: 2px solid var(--accent-color); transition: transform 0.3s ease;">
+                            <span>💬</span> Get in Touch
+                        </a>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid var(--border-color);">
+                        <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1rem;"><strong>Technologies I Love:</strong></p>
+                        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                            <span style="padding: 0.5rem 1rem; background: var(--bg-darker); border-radius: 20px; font-size: 0.9rem; color: var(--text-dark); border: 1px solid var(--border-color);">⚛️ React</span>
+                            <span style="padding: 0.5rem 1rem; background: var(--bg-darker); border-radius: 20px; font-size: 0.9rem; color: var(--text-dark); border: 1px solid var(--border-color);">📱 React Native</span>
+                            <span style="padding: 0.5rem 1rem; background: var(--bg-darker); border-radius: 20px; font-size: 0.9rem; color: var(--text-dark); border: 1px solid var(--border-color);">📘 TypeScript</span>
+                            <span style="padding: 0.5rem 1rem; background: var(--bg-darker); border-radius: 20px; font-size: 0.9rem; color: var(--text-dark); border: 1px solid var(--border-color);">🚀 Expo</span>
+                            <span style="padding: 0.5rem 1rem; background: var(--bg-darker); border-radius: 20px; font-size: 0.9rem; color: var(--text-dark); border: 1px solid var(--border-color);">💻 Node.js</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Developer/Contributing Section -->
+    <section class="features" id="contributing" style="background: var(--bg-light);">
+        <div class="container">
+            <h2 class="section-title">🤝 Contributing</h2>
+            <p class="section-subtitle">We welcome contributions! Help us build a better collection of reusable hooks</p>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📝</div>
+                    <h3>Code Guidelines</h3>
+                    <p>Use TypeScript for type safety, keep code clean and modular, and ensure hooks are reusable across projects.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📚</div>
+                    <h3>Documentation</h3>
+                    <p>Include brief comments, usage examples, and ensure hooks are placed in logically named files.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🧪</div>
+                    <h3>Testing</h3>
+                    <p>Write simple tests or usage scenarios to demonstrate how your hook works and validate its functionality.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔀</div>
+                    <h3>Pull Requests</h3>
+                    <p>Open a pull request with a clear description of your changes. We'll review and merge quality contributions.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🐛</div>
+                    <h3>Report Issues</h3>
+                    <p>Found a bug or have a feature request? Open an issue on GitHub and help us improve the project.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Show Support</h3>
+                    <p>Star the repository if you find it useful and share it with others in the React & React Native community.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="https://github.com/MuneebQureshi1/CustomHooks/blob/main/CONTRIBUTING.md" class="cta-button" style="background: var(--gradient-primary); color: white; border: none;">Read Contributing Guide</a>
+                <a href="https://github.com/MuneebQureshi1/CustomHooks" class="cta-button" style="background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color);">View on GitHub</a>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta-section" id="cta">
         <div class="container">
@@ -626,9 +1022,9 @@
             <div class="footer-links">
                 <a href="#features">Features</a>
                 <a href="#hooks">Hooks</a>
-                <a href="https://github.com/">GitHub</a>
-                <a href="https://github.com">Documentation</a>
-                <a href="https://github.com">Contributing</a>
+                <a href="https://github.com/MuneebQureshi1/CustomHooks">GitHub</a>
+                <a href="https://github.com/MuneebQureshi1/CustomHooks/blob/main/README.md">Documentation</a>
+                <a href="https://github.com/MuneebQureshi1/CustomHooks/blob/main/CONTRIBUTING.md">Contributing</a>
             </div>
             <div class="footer-bottom">
                 <p>Made with ❤️ for the React & React Native community</p>
@@ -641,8 +1037,78 @@
     <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
         ↑
     </div>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Hook Detail Page -->
+    <div id="hookPage" class="hook-page">
+        <div class="hook-page-container">
+            <div class="hook-page-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h1 id="hookPageTitle">Hook Details</h1>
+            </div>
+            <div class="hook-page-body">
+                <div id="hookPageLoading" class="hook-page-loading">
+                    <div class="spinner"></div>
+                    <p>Loading hook details...</p>
+                </div>
+                <div id="hookPageContent" style="display: none;">
+                    <div class="hook-info-section">
+                        <h3>📖 Description</h3>
+                        <p id="hookPageDescription"></p>
+                    </div>
+                    <div class="hook-info-section">
+                        <h3>📦 Dependencies</h3>
+                        <div id="hookPageDependencies"></div>
+                    </div>
+                    <div class="hook-info-section">
+                        <h3>💻 Code</h3>
+                        <div class="code-header">
+                            <span id="hookPageFileName" class="file-name"></span>
+                            <button class="copy-btn" id="copyPageBtn" onclick="copyPageCode()">📋 Copy Code</button>
+                        </div>
+                        <pre id="hookPageCode"><code id="pageCodeContent"></code></pre>
+                    </div>
+                    <div class="hook-info-section" id="usagePageSection" style="display: none;">
+                        <h3>📝 Usage Example</h3>
+                        <pre id="hookPageUsage"><code id="pageUsageContent"></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
+        // Theme Toggle Functionality
+        function getTheme() {
+            return localStorage.getItem('theme') || 'dark';
+        }
+
+        function setTheme(theme) {
+            localStorage.setItem('theme', theme);
+            document.documentElement.setAttribute('data-theme', theme);
+            updateThemeIcon(theme);
+        }
+
+        function updateThemeIcon(theme) {
+            const themeIcon = document.getElementById('themeIcon');
+            if (themeIcon) {
+                themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = getTheme();
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        }
+
+        // Initialize theme on page load
+        (function() {
+            const savedTheme = getTheme();
+            setTheme(savedTheme);
+        })();
+
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
@@ -711,6 +1177,1951 @@
                 hero.style.opacity = 1 - (scrolled / hero.offsetHeight) * 0.5;
             }
         });
+
+        // Hook Modal Functionality
+        const hookData = {
+            'api-calling': {
+                name: 'API Calling',
+                emoji: '🔄',
+                description: 'Reusable hooks for performing API calls with Axios. Centralizes logic for loading, error handling, and responses. Perfect for fetching data on component mount, when required, or on every load.',
+                dependencies: ['axios', 'react'],
+                code: `/**
+ * useCallApiOnload.tsx
+ *
+ * This hook is used to call an API function when the component mounts.
+ * It is useful when you need to call an API function when the component mounts.
+ *
+ * @param apiFunction - The API function to call.
+ * @param params - The parameters for the API function.
+ * @param shouldCallApi - Whether to call the API function.
+ * @param onSuccess - The function to call when the API call is successful.
+ */
+
+import {useState, useEffect} from 'react';
+
+const useCallApiOnLoad = (
+  apiFunction: (data?: any) => Promise<any>,
+  params?: any, // Parameters for the API function
+  shouldCallApi: boolean = true, // Parameter to control API call
+  onSuccess?: (data: any) => void, // Optional onSuccess callback
+) => {
+  const [data, setData] = useState<any[] | any>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const callApi = async () => {
+    setError(null);
+    try {
+      const results: any = await apiFunction(params); // Pass params to the api function
+      if (__DEV__) {
+        console.log('results', JSON.stringify(results));
+      }
+      setData(results);
+
+      // If onSuccess is provided, call it with the results
+      if (results && onSuccess) {
+        onSuccess(results);
+      }
+      if (results) {
+        setLoading(false);
+      }
+    } catch (err: any) {
+      setError(err.message || 'An error occurred');
+      console.log(err.message);
+    }
+  };
+
+  // Call the API on mount or when params change if shouldCallApi is true
+  useEffect(() => {
+    setLoading(true);
+    if (shouldCallApi) {
+      callApi();
+    }
+  }, [shouldCallApi]); // Re-run when shouldCallApi or isFocus change
+
+  return {data, loading, error, callApi, setLoading};
+};
+
+export default useCallApiOnLoad;`,
+                fileName: 'useCallApiOnload.tsx'
+            },
+            'biometric-auth': {
+                name: 'Biometric Authentication',
+                emoji: '🔐',
+                description: 'Authenticate users using biometric methods like Fingerprint, Face ID, or Iris with expo-local-authentication. Works in Expo Go and provides separate authentication functions for each biometric type.',
+                dependencies: ['expo-local-authentication', 'react'],
+                code: `/**
+ * 📱 useBiometricAuth Hook (React Native + Expo)
+ * 
+ * ✅ Features:
+ * - Detects supported biometric types (fingerprint, face, iris)
+ * - Provides separate authentication functions for each type
+ * - Returns:
+ *   - supportedTypes: list of available biometric methods
+ *   - isAuthenticated: result of the last auth attempt
+ * 
+ * 🧠 How It Works:
+ * - On mount, it checks for biometric hardware and enrolled biometrics
+ * - Then maps the available methods to friendly names ('fingerprint', 'face', 'iris')
+ * 
+ * 📦 Requirements:
+ * - expo-local-authentication (built-in with Expo Go)
+ */
+
+import * as LocalAuthentication from 'expo-local-authentication';
+import { useEffect, useState } from 'react';
+
+export type BiometricType = 'fingerprint' | 'face' | 'iris';
+
+export const useBiometricAuth = () => {
+  const [supportedTypes, setSupportedTypes] = useState<BiometricType[]>([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Fetch supported biometric types
+  useEffect(() => {
+    (async () => {
+      const hasHardware = await LocalAuthentication.hasHardwareAsync();
+      const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+
+      if (hasHardware && isEnrolled) {
+        const types = await LocalAuthentication.supportedAuthenticationTypesAsync();
+        const mapped = types.map((type) => {
+          switch (type) {
+            case LocalAuthentication.AuthenticationType.FINGERPRINT:
+              return 'fingerprint';
+            case LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION:
+              return 'face';
+            case LocalAuthentication.AuthenticationType.IRIS:
+              return 'iris';
+            default:
+              return null;
+          }
+        }).filter(Boolean) as BiometricType[];
+
+        setSupportedTypes(mapped);
+      }
+    })();
+  }, []);
+
+  const authenticateWithFingerprint = async (): Promise<boolean> => {
+    if (!supportedTypes.includes('fingerprint')) return false;
+
+    const result = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Authenticate with fingerprint',
+      disableDeviceFallback: false,
+    });
+
+    setIsAuthenticated(result.success);
+    return result.success;
+  };
+
+  const authenticateWithFace = async (): Promise<boolean> => {
+    if (!supportedTypes.includes('face')) return false;
+
+    const result = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Authenticate with Face ID',
+      disableDeviceFallback: false,
+    });
+
+    setIsAuthenticated(result.success);
+    return result.success;
+  };
+
+  const authenticateWithIris = async (): Promise<boolean> => {
+    if (!supportedTypes.includes('iris')) return false;
+
+    const result = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Authenticate with iris scan',
+      disableDeviceFallback: false,
+    });
+
+    setIsAuthenticated(result.success);
+    return result.success;
+  };
+
+  return {
+    authenticateWithFingerprint,
+    authenticateWithFace,
+    authenticateWithIris,
+    supportedTypes,
+    isAuthenticated,
+  };
+};`,
+                fileName: 'useBiometricAuth.ts'
+            },
+            'csv-upload': {
+                name: 'CSV Upload',
+                emoji: '📊',
+                description: 'Handle CSV file upload and parsing in React Native/Expo applications. Pick CSV files from device, parse them, and upload to server with progress tracking and validation.',
+                dependencies: ['expo-document-picker', 'expo-file-system', 'axios', 'react'],
+                code: `/**
+ * 📊 useCsvUpload Hook - Handles CSV file upload and parsing.
+ * 
+ * This hook is used to upload a CSV file to a server.
+ * It is used to pick a CSV file from the device, parse the file, and upload the file to the server.
+ */
+
+import * as DocumentPicker from "expo-document-picker";
+import * as FileSystem from "expo-file-system";
+import { useState } from "react";
+import axios from "axios";
+
+export type CsvFile = {
+  uri: string;
+  name: string;
+  size: number;
+  mimeType: string;
+};
+
+export type CsvRow = {
+  [key: string]: string;
+};
+
+export type CsvParseResult = {
+  headers: string[];
+  rows: CsvRow[];
+  totalRows: number;
+};
+
+export type UploadProgress = {
+  loaded: number;
+  total: number;
+  percentage: number;
+};
+
+interface UseCsvUploadOptions {
+  onUploadSuccess?: (response: any) => void;
+  onUploadError?: (error: any) => void;
+  onProgress?: (progress: UploadProgress) => void;
+  maxFileSize?: number; // in bytes, default 10MB
+  allowedMimeTypes?: string[];
+}
+
+export const useCsvUpload = (options?: UseCsvUploadOptions) => {
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<UploadProgress | null>(null);
+
+  const {
+    onUploadSuccess,
+    onUploadError,
+    onProgress,
+    maxFileSize = 10 * 1024 * 1024, // 10MB default
+    allowedMimeTypes = [
+      "text/csv",
+      "application/vnd.ms-excel",
+      "text/comma-separated-values",
+      "application/csv",
+    ],
+  } = options || {};
+
+  // Pick CSV file
+  const pickCsvFile = async (): Promise<CsvFile | null> => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type: allowedMimeTypes,
+        copyToCacheDirectory: true,
+        multiple: false,
+      });
+
+      if (result.canceled) {
+        return null;
+      }
+
+      const file = result.assets[0];
+      
+      // Validate file size
+      if (file.size && file.size > maxFileSize) {
+        const maxSizeMB = (maxFileSize / (1024 * 1024)).toFixed(2);
+        console.log(\`File size exceeds \${maxSizeMB}MB limit\`);
+        return null;
+      }
+
+      // Validate file type
+      if (file.mimeType && !allowedMimeTypes.includes(file.mimeType)) {
+        console.log("Please select a valid CSV file");
+        return null;
+      }
+
+      const csvFile: CsvFile = {
+        uri: file.uri,
+        name: file.name || "file.csv",
+        size: file.size || 0,
+        mimeType: file.mimeType || "text/csv",
+      };
+
+      return csvFile;
+    } catch (error) {
+      console.log("CSV Picker Error:", error);
+      return null;
+    }
+  };
+
+  // Parse CSV file content
+  const parseCsvFile = async (file: CsvFile): Promise<CsvParseResult | null> => {
+    try {
+      const fileContent = await FileSystem.readAsStringAsync(file.uri);
+      
+      if (!fileContent || fileContent.trim().length === 0) {
+        console.log("CSV file is empty");
+        return null;
+      }
+
+      // Split by newlines
+      const lines = fileContent.split(/\\r?\\n/).filter((line) => line.trim().length > 0);
+      
+      if (lines.length === 0) {
+        console.log("CSV file has no data");
+        return null;
+      }
+
+      // Parse headers (first line)
+      const headers = lines[0]
+        .split(",")
+        .map((header) => header.trim().replace(/^"|"$/g, ""));
+
+      if (headers.length === 0) {
+        console.log("CSV file has no headers");
+        return null;
+      }
+
+      // Parse rows
+      const rows: CsvRow[] = [];
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i]
+          .split(",")
+          .map((value) => value.trim().replace(/^"|"$/g, ""));
+        
+        if (values.length === 0 || values.every((v) => !v)) {
+          continue; // Skip empty rows
+        }
+
+        const row: CsvRow = {};
+        headers.forEach((header, index) => {
+          row[header] = values[index] || "";
+        });
+        rows.push(row);
+      }
+
+      return {
+        headers,
+        rows,
+        totalRows: rows.length,
+      };
+    } catch (error) {
+      console.log("CSV Parse Error:", error);
+      return null;
+    }
+  };
+
+  // Upload CSV file to server
+  const uploadCsvFile = async (
+    file: CsvFile,
+    endpoint: string,
+    additionalData?: { [key: string]: any }
+  ): Promise<any> => {
+    try {
+      setIsUploading(true);
+      setUploadProgress(null);
+
+      const formData = new FormData();
+      const fileName = file.name || "file.csv";
+      const fileType = file.mimeType || "text/csv";
+
+      formData.append("file", {
+        uri: file.uri,
+        name: fileName,
+        type: fileType,
+      } as any);
+
+      if (additionalData) {
+        Object.keys(additionalData).forEach((key) => {
+          formData.append(key, String(additionalData[key]));
+        });
+      }
+
+      const response = await axios.post(endpoint, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+          if (progressEvent.total) {
+            const progress: UploadProgress = {
+              loaded: progressEvent.loaded,
+              total: progressEvent.total,
+              percentage: Math.round(
+                (progressEvent.loaded / progressEvent.total) * 100
+              ),
+            };
+            setUploadProgress(progress);
+            if (onProgress) {
+              onProgress(progress);
+            }
+          }
+        },
+      });
+
+      setIsUploading(false);
+      setUploadProgress(null);
+
+      if (onUploadSuccess) {
+        onUploadSuccess(response);
+      }
+
+      return response;
+    } catch (error: any) {
+      setIsUploading(false);
+      setUploadProgress(null);
+
+      if (onUploadError) {
+        onUploadError(error);
+      }
+
+      throw error;
+    }
+  };
+
+  const pickAndParseCsv = async (): Promise<CsvParseResult | null> => {
+    const file = await pickCsvFile();
+    if (!file) return null;
+    return await parseCsvFile(file);
+  };
+
+  const pickAndUploadCsv = async (
+    endpoint: string,
+    additionalData?: { [key: string]: any }
+  ): Promise<any> => {
+    const file = await pickCsvFile();
+    if (!file) return null;
+    return await uploadCsvFile(file, endpoint, additionalData);
+  };
+
+  return {
+    pickCsvFile,
+    parseCsvFile,
+    uploadCsvFile,
+    pickAndParseCsv,
+    pickAndUploadCsv,
+    isUploading,
+    uploadProgress,
+  };
+};`,
+                fileName: 'useCsvUpload.tsx'
+            },
+            'disable-back': {
+                name: 'Disable Android Back Button',
+                emoji: '🔙',
+                description: 'Disable or customize the Android back button behavior. Useful in authentication flows, modal screens, or splash screens where you want to prevent users from going back.',
+                dependencies: ['@react-navigation/native', 'react'],
+                code: `/**
+ * useDisableBack.tsx
+ *
+ * This hook is used to disable the back button on a screen.
+ * It is useful when you need to disable the back button on a screen.
+ *
+ * Usage:
+ * useDisableBack();
+ */
+
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useCallback } from 'react';
+import { BackHandler, Platform } from 'react-native';
+
+const useDisableBack = () => {
+  const navigation = useNavigation();
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        BackHandler.exitApp();  // app close karo
+        return true;             // event handled hai
+      };
+
+      if (Platform.OS === 'android') {
+        BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      }
+
+      const beforeRemoveListener = navigation.addListener('beforeRemove', (e) => {
+        e.preventDefault();     // default back navigation rok do
+        BackHandler.exitApp();  // app close karo
+      });
+
+      return () => {
+        if (Platform.OS === 'android') {
+          BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+        }
+        beforeRemoveListener();
+      };
+    }, [navigation])
+  );
+};
+
+export default useDisableBack;`,
+                fileName: 'useDisableBack.tsx'
+            },
+            'fcm': {
+                name: 'Firebase Cloud Messaging',
+                emoji: '📲',
+                description: 'Handle Firebase Cloud Messaging (FCM) tokens, request notification permissions, and manage messages in foreground, background, and quit states. Includes alert display for foreground notifications.',
+                dependencies: ['@react-native-firebase/messaging', 'react'],
+                code: `/**
+ * 🔔 useFCM Hook - Handles Firebase Cloud Messaging (FCM) setup for push notifications.
+ * 
+ * 📚 Setup Guide:
+ * - React Native Firebase Messaging Docs: https://rnfirebase.io/messaging/usage
+ * - Firebase Project Setup: https://firebase.google.com/docs/android/setup
+ * - iOS Push Notifications Setup: https://rnfirebase.io/messaging/ios-device-notifications
+ */
+
+import messaging from "@react-native-firebase/messaging";
+import { useCallback, useEffect } from "react";
+import { Alert } from "react-native";
+
+export const useFCM = () => {
+  useEffect(() => {
+    // 📲 Request user permission before getting token
+    requestUserPermission();
+
+    // 🔐 Request and log the FCM token (used to send notifications to this device)
+    getFcmToken();
+
+    // 📩 Listener for messages received while the app is in the foreground
+    const unsubscribeOnMessage = messaging().onMessage(
+      async (remoteMessage) => {
+        console.log("📩 FCM Foreground:", remoteMessage);
+        Alert.alert(
+          remoteMessage.notification?.title || "Notification",
+          remoteMessage.notification?.body || ""
+        );
+      }
+    );
+
+    // 🔙 Triggered when user taps a notification and the app is in background
+    const unsubscribeFromOpened = messaging().onNotificationOpenedApp(
+      (remoteMessage) => {
+        console.log("🔙 Opened from background:", remoteMessage);
+        // Handle navigation or logic here
+      }
+    );
+
+    // 🚀 Called when app is opened by tapping a notification while it was fully closed
+    messaging()
+      .getInitialNotification()
+      .then((remoteMessage) => {
+        if (remoteMessage) {
+          console.log("🚀 Opened from quit state:", remoteMessage);
+          // Handle navigation or logic here
+        }
+      });
+
+    // 📦 Set handler for messages received in background (Android only)
+    messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+      console.log("📦 Background Message:", remoteMessage);
+    });
+
+    // 🧹 Clean up listeners on unmount
+    return () => {
+      unsubscribeOnMessage();
+      unsubscribeFromOpened();
+    };
+  }, []);
+
+  // 📲 Request permission to receive notifications (especially for iOS)
+  const requestUserPermission = useCallback(async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log("✅ Notification permission granted:", authStatus);
+    } else {
+      console.log("❌ Notification permission denied:", authStatus);
+    }
+  }, []);
+
+  // 🔐 Get FCM token for this device
+  const getFcmToken = useCallback(async () => {
+    try {
+      const token = await messaging().getToken();
+      console.log("🔐 FCM Token:", token);
+      return token;
+    } catch (error) {
+      console.log("❌ Error getting FCM token:", error);
+    }
+  }, []);
+
+  return {
+    requestUserPermission,
+    getFcmToken,
+  };
+};`,
+                fileName: 'useFCM.tsx'
+            },
+            'force-update': {
+                name: 'Force Update',
+                emoji: '⚠️',
+                description: 'Check app version using react-native-version-check. Can force users to update if they are on an older version. Perfect for ensuring users have the latest features and bug fixes.',
+                dependencies: ['react-native-version-check', 'react'],
+                code: `/**
+ * useForceUpdateCheck.ts
+ *
+ * This hook checks for app updates using react-native-version-check.
+ * It returns a boolean indicating whether an update is needed.
+ * If an update is required, it shows an alert and forces the user to update.
+ *
+ * Usage:
+ * const isUpdateNeeded = useForceUpdateCheck();
+ */
+
+import { useEffect, useState } from 'react';
+import { Alert, Linking } from 'react-native';
+import VersionCheck from 'react-native-version-check';
+
+const useForceUpdateCheck = (): boolean => {
+  const [isUpdateNeeded, setIsUpdateNeeded] = useState(false);
+
+  useEffect(() => {
+    const checkUpdate = async () => {
+      try {
+        const res = await VersionCheck.needUpdate();
+
+        if (res?.isNeeded) {
+          setIsUpdateNeeded(true);
+
+          Alert.alert(
+            'Update Required',
+            'A new version of the app is available. Please update to continue.',
+            [
+              {
+                text: 'Update Now',
+                onPress: () => {
+                  if (res.storeUrl) {
+                    Linking.openURL(res.storeUrl);
+                  }
+                },
+              },
+            ],
+            { cancelable: false }
+          );
+        }
+      } catch (error) {
+        console.log('Version check failed:', error);
+      }
+    };
+
+    checkUpdate();
+  }, []);
+
+  return isUpdateNeeded;
+};
+
+export default useForceUpdateCheck;`,
+                fileName: 'useForceUpdateCheck.tsx'
+            },
+            'hide-tabbar': {
+                name: 'Hide Tab Bar',
+                emoji: '🙈',
+                description: 'Dynamically hide the bottom tab bar in specific screens using React Navigation. Useful for full-screen experiences or modals where you want to hide navigation.',
+                dependencies: ['@react-navigation/native', 'react'],
+                code: `/**
+ * useHideTabBar.tsx
+ *
+ * This hook is used to hide the tab bar on a screen.
+ * It is useful when you need to hide the tab bar on a screen.
+ * Usage:
+ * useHideTabBar({navigation});
+ *
+ * @param navigation - The navigation object.
+ */
+
+import {useEffect} from 'react';
+import {NavigationProp, ParamListBase} from '@react-navigation/native';
+
+type UseHideTabBarProps = {
+  navigation: NavigationProp<ParamListBase>;
+};
+
+export const useHideTabBar = ({navigation}: UseHideTabBarProps) => {
+  useEffect(() => {
+    // Hide the tab bar on this screen
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {display: 'none'},
+    });
+
+    // Reset the tab bar visibility when leaving the screen
+    return () => {
+      navigation.getParent()?.setOptions({
+        //@ts-ignore
+        //Add your tabBarStyle here uncomment it
+        //tabBarStyle: globalStyle.bottomBarStlye,
+      });
+    };
+  }, [navigation]);
+};`,
+                fileName: 'useHideTabBar.tsx'
+            },
+            'image-picker': {
+                name: 'Image Picker',
+                emoji: '🖼️',
+                description: 'Select images from camera or gallery using expo-image-picker. Provides full customization options for image quality, aspect ratio, and allows both camera and gallery access.',
+                dependencies: ['expo-image-picker', 'react'],
+                code: `/**
+ * useImagePicker.tsx
+ *
+ * This hook is used to pick an image from the library or take a photo.
+ * It is useful when you need to pick an image from the library or take a photo.
+ *
+ * Usage:
+ * const { pickFromLibrary, takePhoto } = useImagePicker();
+ * const uri = await takePhoto/pickFromLibrary();
+ */
+
+import * as ImagePicker from "expo-image-picker";
+import { Alert } from "react-native";
+
+export type ImageObject = {
+  uri: string;
+  name: string | undefined;
+  type: string | undefined;
+};
+
+export const useImagePicker = () => {
+  const requestMediaLibraryPermission = async (): Promise<boolean> => {
+    try {
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert(
+          "Permission Required",
+          "Access to your photo library is required to select images."
+        );
+        return false;
+      }
+      return true;
+    } catch (error) {
+      console.log("Media Library Permission Error:", error);
+      return false;
+    }
+  };
+
+  const requestCameraPermission = async (): Promise<boolean> => {
+    try {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert(
+          "Permission Required",
+          "Access to your camera is required to take photos."
+        );
+        return false;
+      }
+      return true;
+    } catch (error) {
+      console.log("Camera Permission Error:", error);
+      return false;
+    }
+  };
+
+  const pickFromLibrary = async (): Promise<ImageObject | null> => {
+    try {
+      const hasPermission = await requestMediaLibraryPermission();
+      if (!hasPermission) return null;
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ["images"],
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        const imageObject = {
+          uri: result.assets[0].uri,
+          name: result.assets[0].fileName,
+          type: result.assets[0].mimeType,
+        };
+        return imageObject;
+      }
+      return null;
+    } catch (error) {
+      console.log("Failed to open image library:", error);
+      return null;
+    }
+  };
+
+  const takePhoto = async (): Promise<ImageObject | null> => {
+    try {
+      const hasPermission = await requestCameraPermission();
+      if (!hasPermission) return null;
+
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        const imageObject = {
+          uri: result.assets[0].uri,
+          name: result.assets[0].fileName,
+          type: result.assets[0].mimeType,
+        };
+        return imageObject;
+      }
+      return null;
+    } catch (error) {
+      console.log("Failed to open camera:", error);
+      return null;
+    }
+  };
+
+  return {
+    pickFromLibrary,
+    takePhoto,
+  };
+};`,
+                fileName: 'useImagePicker.tsx'
+            },
+            'in-app-purchase': {
+                name: 'In-App Purchases',
+                emoji: '💳',
+                description: 'Handle in-app subscriptions or one-time purchases using react-native-iap. Complete purchase flow with support for both iOS and Android platforms.',
+                dependencies: ['react-native-iap', 'react'],
+                code: `/** InAppPurchases/useInAppPurchase.ts
+ Library: https://github.com/react-native-iap/react-native-iap/blob/main/docs/IAP.md
+ Docs: https://docs.google.com/document/d/1l-3NVQzTDdt2zDuegNOIrbONBtHXy2e0o46rQd6lOmQ/edit?tab=t.0
+ */
+
+import { useCallback, useState } from "react";
+import {
+  initConnection,
+  getProducts,
+  requestSubscription,
+  getSubscriptions,
+  getAvailablePurchases,
+  clearTransactionIOS,
+} from "react-native-iap";
+import { Platform } from "react-native";
+
+interface PurchaseResult {
+  detail?: any;
+  error?: any;
+  success: boolean;
+}
+
+export const useInAppPurchase = () => {
+  const [loading, setLoading] = useState(false);
+
+  const makeConnection = useCallback(async (productId: string) => {
+    await initConnection();
+    await getProducts({ skus: [productId] });
+
+    if (Platform.OS === "ios") {
+      const availablePurchases = await getAvailablePurchases();
+      if (availablePurchases.length > 0) {
+        await clearTransactionIOS();
+      }
+    }
+  }, []);
+
+  const handlePurchase = useCallback(
+    async (productId: string): Promise<PurchaseResult> => {
+      try {
+        setLoading(true);
+        await makeConnection(productId);
+
+        const subscriptions = await getSubscriptions({ skus: [productId] });
+        const offerToken =
+          Platform.OS === "android"
+            ? subscriptions?.[0]?.subscriptionOfferDetails?.[0]?.offerToken
+            : undefined;
+
+        const subscriptionPayload: any = {
+          sku: productId,
+        };
+
+        if (Platform.OS === "android" && offerToken) {
+          subscriptionPayload.subscriptionOffers = [
+            {
+              sku: productId,
+              offerToken,
+            },
+          ];
+        }
+
+        const result = await requestSubscription(subscriptionPayload);
+
+        return {
+          detail: result,
+          success: true,
+        };
+      } catch (error: any) {
+        return {
+          error,
+          success: false,
+        };
+      } finally {
+        setLoading(false);
+      }
+    },
+    [makeConnection]
+  );
+
+  return {
+    loading,
+    handlePurchase,
+  };
+};`,
+                fileName: 'useInAppPurchase.ts'
+            },
+            'axios-interceptor': {
+                name: 'Axios Interceptors',
+                emoji: '🔐',
+                description: 'Attach authorization headers and handle requests/responses. Available in two versions: with and without refresh token logic. Automatically retries requests after refreshing expired tokens.',
+                dependencies: ['axios', 'react'],
+                code: `/**
+ * axiosConfig.tsx - Without Refresh Token
+ *
+ * This file is used to configure the axios instance.
+ * It is used to add a request interceptor and a response interceptor.
+ *
+ * Usage:
+ * import { dataServer } from "./axiosConfig";
+ * const response = await dataServer.get("/api/v1/user");
+ */
+
+import axios from 'axios';
+import NetInfo from '@react-native-community/netinfo';
+import { Alert } from 'react-native';
+
+const UseAccessToken = async () => {
+  // get access token from secure storage
+  const AccessTokken = '';
+  if (AccessTokken) {
+    return AccessTokken;
+  } else {
+    return null;
+  }
+};
+
+const dataServer = axios.create({
+  baseURL: "", // add your base url here
+  timeout: 100000,
+  maxBodyLength: Infinity,
+  maxContentLength: Infinity,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+dataServer.interceptors.request.use((config: any) => {
+  return new Promise((resolve, reject) => {
+    NetInfo.addEventListener(async state => {
+      const accessToken = await UseAccessToken();
+      if (!state.isConnected) {
+        return reject({message: 'No internet connection'});
+      }
+      if (config.data && config.data instanceof FormData) {
+        config.headers['Content-Type'] = 'multipart/form-data';
+      } else {
+        config.headers['Content-Type'] = 'application/json';
+      }
+      if (accessToken) {
+        config.headers.Authorization = \`Bearer \${accessToken}\`;
+      }
+      return resolve(config);
+    });
+  });
+});
+
+dataServer.interceptors.response.use(
+  (response: any) => {
+    return response.data;
+  },
+  (error: any) => {
+    if (error?.message === 'No internet connection') {
+      Alert.alert(
+        'It looks like you are offline. Please check your network and try again.',
+      );
+    }
+    if (error?.response?.status === 401) {
+      //When we use accessToken or our session expires we can do two methods on with refresh tokken and other is to navigate on login screen
+      //   navigate();
+    }
+    return Promise.reject(error);
+  },
+);
+
+export {dataServer};
+
+// ============================================
+// axiosConfig.tsx - With Refresh Token
+// ============================================
+
+/**
+ * This version includes refresh token logic.
+ * Automatically retries requests after refreshing expired tokens.
+ */
+
+import NetInfo from "@react-native-community/netinfo";
+import axios from "axios";
+import { router } from "expo-router";
+import { Alert } from "react-native";
+
+const UseAccessToken = async () => {
+  const token = await getFromSecureStorage("@access_token");
+  return token || null;
+};
+
+const UseRefreshToken = async () => {
+  const token = await getFromSecureStorage("@refresh_token");
+  return token || null;
+};
+
+const dataServer = axios.create({
+  baseURL: "",
+  timeout: 100000,
+  maxBodyLength: Infinity,
+  maxContentLength: Infinity,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+// REQUEST INTERCEPTOR
+dataServer.interceptors.request.use((config: any) => {
+  return new Promise((resolve, reject) => {
+    NetInfo.addEventListener(async (state) => {
+      const accessToken = await UseAccessToken();
+
+      if (!state.isConnected) {
+        return reject({ message: "No internet connection" });
+      }
+
+      if (config.data && config.data instanceof FormData) {
+        config.headers["Content-Type"] = "multipart/form-data";
+      } else {
+        config.headers["Content-Type"] = "application/json";
+      }
+
+      if (accessToken) {
+        config.headers.Authorization = \`Bearer \${accessToken}\`;
+      }
+
+      return resolve(config);
+    });
+  });
+});
+
+// REFRESH TOKEN FUNCTION
+const refreshToken = async () => {
+  try {
+    const token = await UseRefreshToken();
+    if (!token) throw new Error("No refresh token found");
+
+    const response = await axios.post(
+      'refreshTokenUrl',
+      // add your request body here
+    );
+
+    const newAccessToken = response.data.data.access_token;
+    const newRefreshToken = response.data.data.refresh_token;
+
+    await saveToSecureStorage("@access_token", newAccessToken);
+    await saveToSecureStorage("@refresh_token", newRefreshToken);
+
+    return newAccessToken;
+  } catch (err) {
+    console.log("Token refresh failed:", err);
+    return null;
+  }
+};
+
+// RESPONSE INTERCEPTOR
+dataServer.interceptors.response.use(
+  (response: any) => response.data,
+  async (error: any) => {
+    const originalRequest = error.config;
+
+    const errorMessage = error?.message;
+
+    if (
+      errorMessage === "Network Error" ||
+      errorMessage === "No internet connection" ||
+      !error?.response
+    ) {
+      return new Promise((resolve, reject) => {
+        Alert.alert(
+          "No Internet Connection",
+          "It looks like you are offline. Please check your internet connection.",
+          [
+            {
+              text: "Retry",
+              onPress: () => {
+                resolve(dataServer(originalRequest));
+              },
+            },
+            {
+              text: "Cancel",
+              onPress: () => {
+                reject(error);
+              },
+              style: "cancel",
+            },
+          ],
+          { cancelable: false }
+        );
+      });
+    }
+
+    if (
+      error?.response?.status === 401 &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+      const newAccessToken = await refreshToken();
+      if (newAccessToken) {
+        originalRequest.headers.Authorization = \`Bearer \${newAccessToken}\`;
+        return dataServer(originalRequest);
+      } else {
+        await removeKeysFromSecureStorage(["@access_token", "@refresh_token"]);
+        console.log("Your session has expired. Please log in again.");
+        router.push(\`/login\`);
+      }
+    } else {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export { dataServer };`,
+                fileName: 'axiosConfig.tsx (Both Versions)'
+            },
+            'internet-status': {
+                name: 'Internet Status',
+                emoji: '🌐',
+                description: 'Track internet connectivity using @react-native-community/netinfo. Provides real-time connection status with isConnected and isInternetReachable flags.',
+                dependencies: ['@react-native-community/netinfo', 'react'],
+                code: `/**
+ * useNetworkStatus Hook
+ *
+ * Monitors internet connectivity status.
+ * Returns:
+ * - isConnected: boolean — true if the device is connected to the internet
+ * - isInternetReachable: boolean | null — indicates if the internet is reachable
+ *
+ * Usage:
+ * const { isConnected, isInternetReachable } = useNetworkStatus();
+ */
+
+import { useEffect, useState } from "react";
+import NetInfo, { NetInfoSubscription } from "@react-native-community/netinfo";
+
+export const useNetworkStatus = () => {
+  const [isConnected, setIsConnected] = useState<boolean>(true);
+  const [isInternetReachable, setIsInternetReachable] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const unsubscribe: NetInfoSubscription = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected ?? false);
+      setIsInternetReachable(state.isInternetReachable ?? null);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  return { isConnected, isInternetReachable };
+};`,
+                fileName: 'useNetworkStatus.ts'
+            },
+            'keyboard': {
+                name: 'Keyboard Visibility',
+                emoji: '⌨️',
+                description: 'Track keyboard visibility and height. Useful for dynamically adjusting UI based on keyboard presence. Perfect for forms and input-heavy screens.',
+                dependencies: ['react'],
+                code: `/**
+ * useKeyboard Hook
+ *
+ * This custom React hook listens for keyboard events and provides:
+ *  - keyboardVisible: boolean indicating if the keyboard is currently visible.
+ *  - keyboardHeight: height of the keyboard in pixels (useful for adjusting UI).
+ *
+ * Platform-specific handling:
+ *  - iOS: listens to keyboardWillShow / keyboardWillHide
+ *  - Android: listens to keyboardDidShow / keyboardDidHide
+ *
+ * Usage:
+ * const { keyboardVisible, keyboardHeight } = useKeyboard();
+ */
+
+import { useEffect, useState } from "react";
+import { Keyboard, KeyboardEvent, Platform } from "react-native";
+
+export const useKeyboard = () => {
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+
+  useEffect(() => {
+    const onKeyboardDidShow = (e: KeyboardEvent) => {
+      setKeyboardVisible(true);
+      setKeyboardHeight(e.endCoordinates.height);
+    };
+
+    const onKeyboardDidHide = () => {
+      setKeyboardVisible(false);
+      setKeyboardHeight(0);
+    };
+
+    const showSub = Platform.OS === 'ios'
+      ? Keyboard.addListener("keyboardWillShow", onKeyboardDidShow)
+      : Keyboard.addListener("keyboardDidShow", onKeyboardDidShow);
+
+    const hideSub = Platform.OS === 'ios'
+      ? Keyboard.addListener("keyboardWillHide", onKeyboardDidHide)
+      : Keyboard.addListener("keyboardDidHide", onKeyboardDidHide);
+
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
+
+  return { keyboardVisible, keyboardHeight };
+};`,
+                fileName: 'useKeyboard.ts'
+            },
+            'preload-images': {
+                name: 'Preload Local Images',
+                emoji: '🖼️',
+                description: 'Preload local images before displaying them using expo-asset. Improves app performance by caching images upfront. Perfect for splash screens or apps with heavy image content.',
+                dependencies: ['expo-asset', 'react'],
+                code: `/**
+ * usePreloadImages.ts
+ *
+ * This hook is used to preload images.
+ * It is useful when you need to preload images.
+ *
+ * @param images - The images to preload.
+ */
+
+import { Asset } from 'expo-asset';
+import { useEffect, useState } from 'react';
+
+export function usePreloadImages(images: Record<string, number>) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    async function preload() {
+      try {
+        const imageAssets = Object.values(images).map((img) =>
+          Asset.fromModule(img).downloadAsync()
+        );
+        await Promise.all(imageAssets);
+        setIsLoaded(true);
+      } catch (err: any) {
+        console.log('Image preloading failed:', err);
+        setIsLoaded(true);
+      }
+    }
+
+    preload();
+  }, [images]);
+
+  return { isLoaded };
+}`,
+                fileName: 'usePreloadImages.ts'
+            },
+            'pusher': {
+                name: 'Pusher/Reverb',
+                emoji: '📡',
+                description: 'Real-time WebSocket communication using Pusher/Reverb with Laravel Echo support. Supports both public and private channels with multiple event listeners per channel.',
+                dependencies: ['laravel-echo', 'pusher-js/react-native', 'react'],
+                code: `/**
+ * usePusherReverb.tsx
+ *
+ * This hook is used to handle the Pusher/Reverb connection.
+ * It is useful when you need to handle the Pusher/Reverb connection.
+ *
+ * packages needed:
+ * laravel-echo: npm install laravel-echo
+ * pusher-js/react-native: npm install pusher-js/react-native
+ */
+
+import Echo from "laravel-echo";
+import Pusher from "pusher-js/react-native";
+import { useEffect, useState } from "react";
+
+type PusherConfig = {
+  appKey: string;
+  host: string;
+  port?: number;
+  scheme?: string;
+  cluster?: string;
+  forceTLS?: boolean;
+  enabledTransports?: string[];
+};
+
+type ChannelConfig = {
+  channelName: string | ((id: number | string) => string);
+  channelType?: "public" | "private";
+  eventNames: string[];
+  onMessageReceived: (message: any, eventName: string) => void;
+  onSubscribed?: (channelName: string) => void;
+  onSubscriptionError?: (error: any) => void;
+};
+
+type UsePusherReverbOptions = {
+  pusherConfig: PusherConfig;
+  getAccessToken?: () => Promise<string | null>;
+  channelConfig?: ChannelConfig;
+  channelId?: number | string;
+  enableLogging?: boolean;
+  logger?: (message: string, ...args: any[]) => void;
+  onConnectionStateChange?: (isConnected: boolean, state: string) => void;
+};
+
+const usePusherReverb = (options: UsePusherReverbOptions) => {
+  const {
+    pusherConfig,
+    getAccessToken,
+    channelConfig,
+    channelId,
+    enableLogging = false,
+    logger = console.log,
+    onConnectionStateChange,
+  } = options;
+
+  const [echoInstance, setEchoInstance] = useState<any>(null);
+  const [isConnected, setIsConnected] = useState(false);
+
+  const log = (message: string, ...args: any[]) => {
+    if (enableLogging && logger) {
+      logger(message, ...args);
+    }
+  };
+
+  useEffect(() => {
+    let PusherClient: any = null;
+    let echo: any = null;
+
+    const initializePusher = async () => {
+      try {
+        const accessToken = getAccessToken ? await getAccessToken() : null;
+        
+        const {
+          appKey,
+          host,
+          port = 8080,
+          scheme = "https",
+          cluster,
+          forceTLS = false,
+          enabledTransports = ["ws", "wss"],
+        } = pusherConfig;
+
+        const pusherClientConfig: any = {
+          wsHost: host,
+          wsPort: port,
+          wssPort: port,
+          forceTLS,
+          enabledTransports,
+          ...(cluster && { cluster }),
+        };
+
+        if (accessToken) {
+          pusherClientConfig.authEndpoint = \`\${scheme}://\${host}/broadcasting/auth\`;
+          pusherClientConfig.auth = {
+            headers: {
+              Authorization: \`Bearer \${accessToken}\`,
+              Accept: "application/json",
+            },
+          };
+        }
+
+        PusherClient = new Pusher(appKey, pusherClientConfig);
+
+        PusherClient.connection.bind("connecting", () => {
+          log("Pusher connecting...");
+          onConnectionStateChange?.(false, "connecting");
+        });
+
+        PusherClient.connection.bind("connected", () => {
+          log("Pusher connected successfully");
+          setIsConnected(true);
+          onConnectionStateChange?.(true, "connected");
+        });
+
+        PusherClient.connection.bind("disconnected", () => {
+          log("Pusher disconnected");
+          setIsConnected(false);
+          onConnectionStateChange?.(false, "disconnected");
+        });
+
+        echo = new Echo({
+          broadcaster: "reverb",
+          client: PusherClient,
+        });
+
+        setEchoInstance(echo);
+      } catch (error) {
+        console.error("Error setting up Pusher:", error);
+        onConnectionStateChange?.(false, "error");
+      }
+    };
+
+    initializePusher();
+
+    return () => {
+      if (echo) {
+        try {
+          echo.disconnect();
+        } catch (error) {
+          console.error("Error disconnecting Echo:", error);
+        }
+      }
+      if (PusherClient) {
+        try {
+          PusherClient.disconnect();
+        } catch (error) {
+          console.error("Error disconnecting Pusher:", error);
+        }
+      }
+    };
+  }, [pusherConfig.appKey, pusherConfig.host, getAccessToken]);
+
+  useEffect(() => {
+    if (!echoInstance || !channelConfig || !channelId) {
+      return;
+    }
+
+    const setupChannel = () => {
+      try {
+        const {
+          channelName,
+          channelType = "public",
+          eventNames,
+          onMessageReceived,
+          onSubscribed,
+          onSubscriptionError,
+        } = channelConfig;
+
+        const finalChannelName =
+          typeof channelName === "function"
+            ? channelName(channelId)
+            : channelName.replace("{id}", String(channelId));
+
+        let channel: any;
+        if (channelType === "private") {
+          channel = echoInstance.private(finalChannelName);
+        } else {
+          channel = echoInstance.channel(finalChannelName);
+        }
+
+        eventNames.forEach((eventName) => {
+          channel.listen(eventName, (e: any) => {
+            log(\`Message received via Echo (\${eventName}):\`, e);
+            onMessageReceived(e, eventName);
+          });
+        });
+
+        channel.subscribed(() => {
+          log("Channel subscribed successfully:", finalChannelName);
+          onSubscribed?.(finalChannelName);
+        });
+
+        channel.error((error: any) => {
+          log("Channel subscription error:", error);
+          onSubscriptionError?.(error);
+        });
+      } catch (error) {
+        log("Error setting up channel:", error);
+        channelConfig.onSubscriptionError?.(error);
+      }
+    };
+
+    const timeoutId = setTimeout(setupChannel, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      if (echoInstance && channelConfig && channelId) {
+        try {
+          const finalChannelName =
+            typeof channelConfig.channelName === "function"
+              ? channelConfig.channelName(channelId)
+              : channelConfig.channelName.replace("{id}", String(channelId));
+          echoInstance.leave(finalChannelName);
+        } catch (error) {
+          log("Error leaving channel in cleanup:", error);
+        }
+      }
+    };
+  }, [echoInstance, channelConfig, channelId]);
+
+  return { echo: echoInstance, isConnected };
+};
+
+export default usePusherReverb;`,
+                fileName: 'usePusherReverb.tsx'
+            },
+            'responsiveness': {
+                name: 'Responsiveness',
+                emoji: '📐',
+                description: 'Implement responsive layouts with or without third-party libraries. Uses Dimensions and percentage-based calculations for consistent layouts across different screen sizes.',
+                dependencies: ['react', 'react-native'],
+                code: `/**
+ * responsive.tsx - Without Library
+ * 
+ * @fileoverview Responsive design utilities
+ * @description This file contains the responsive design utilities for the app
+ */
+
+import { Dimensions, Platform } from "react-native";
+
+export const width = Math.round(Dimensions.get("window").width);
+export const height = Math.round(Dimensions.get("window").height);
+
+//Guideline sizes are based on standard ~5" screen mobile devices
+const guidelineBaseWidth = 360;
+const guidelineBaseHeight = 800 + 40;
+
+export const scale = (size: any) => (width / guidelineBaseWidth) * size;
+
+export const vs = (size: any) => (height / guidelineBaseHeight) * size;
+
+export const ms = (size: any, factor: any = 0.5) => size + (scale(size) - size) * factor;
+
+export const mvs = (size: number, factor: number = Platform.OS === "android" ? 0.7 : 0.5) => {
+  const result = size + (vs(size) - size) * factor;
+  return Math.round(result * 100) / 100;
+};
+
+// ✅ Font scaling
+export const fontScale = (size: number) => {
+  const scaleFactor = width / guidelineBaseWidth;
+  // Different adjusted factor for iOS vs Android
+  const adjustedFactor = Platform.OS === "ios" ? 0.92 : 0.85;
+  const scaled = size * scaleFactor * adjustedFactor;
+  return Math.round(scaled);
+};
+
+// Usage Example:
+// import { scale, vs, ms, mvs, fontScale } from './responsive';
+// 
+// const styles = StyleSheet.create({
+//   container: {
+//     width: scale(300),
+//     height: vs(200),
+//     padding: ms(16),
+//   },
+//   text: {
+//     fontSize: fontScale(16),
+//   },
+// });`,
+                fileName: 'responsive.tsx (Without Library)'
+            },
+            'social-auth': {
+                name: 'Social Auth',
+                emoji: '🔐',
+                description: 'Manage social logins such as Google, Facebook, or Apple. Platform-specific implementations with support for multiple authentication providers.',
+                dependencies: ['react', '@invertase/react-native-apple-authentication', '@react-native-google-signin/google-signin', 'react-native-fbsdk-next'],
+                code: `/**
+ * useSocialAuth.tsx
+ *
+ * This hook is used to handle social authentication.
+ * It is useful when you need to handle social authentication.
+ * 
+ * Apple Auth: https://github.com/invertase/react-native-apple-authentication
+ * Google Auth: https://github.com/react-native-google-signin/google-signin
+ * Facebook Auth: https://github.com/facebook/react-native-fbsdk-next
+ */
+
+import appleAuth from '@invertase/react-native-apple-authentication';
+import {
+  GoogleSignin,
+} from "@react-native-google-signin/google-signin";
+import { useCallback, useEffect, useState } from "react";
+import { Alert } from "react-native";
+import { LoginManager, AccessToken, Profile } from "react-native-fbsdk-next";
+
+interface UseSocialAuthProps {
+  onSuccess: (response: any) => void;
+}
+
+export const useSocialAuth = ({ onSuccess }: UseSocialAuthProps) => {
+  const [socialAuthLoginLoading, setSocialAUthLoginLoading] = useState(false);
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: "YOUR_WEB_CLIENT_ID",
+      offlineAccess: true,
+      iosClientId: "YOUR_IOS_CLIENT_ID",
+    });
+  }, []);
+
+  //Apple Auth
+  const handleAppleLogin = useCallback(async () => {
+    setSocialAUthLoginLoading(true);
+    try {
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
+      });
+
+      const { user, identityToken } = appleAuthRequestResponse;
+      if (identityToken) {
+        try {
+          const credentialState = await appleAuth.getCredentialStateForUser(
+            user
+          );
+          if (credentialState === appleAuth.State.AUTHORIZED) {
+            onSuccess(appleAuthRequestResponse);
+          } else {
+            console.log(
+              "Apple credentialState not authorized:",
+              credentialState
+            );
+            if (__DEV__) {
+              onSuccess(appleAuthRequestResponse);
+            }
+          }
+        } catch (e) {
+          console.log("Credential check failed (simulator fallback):", e);
+          onSuccess(appleAuthRequestResponse);
+        }
+      } else {
+        console.log("No identity token returned from Apple Sign-In");
+      }
+    } catch (error) {
+      console.log("Apple Auth Error", error);
+    } finally {
+      setSocialAUthLoginLoading(false);
+    }
+  }, [onSuccess]);
+
+  //Google Auth
+  const handleGoogleLogin = useCallback(async () => {
+    setSocialAUthLoginLoading(true);
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      onSuccess(userInfo);
+    } catch (error: any) {
+      console.log("handleGoogleLogin", error);
+    } finally {
+      setSocialAUthLoginLoading(false);
+    }
+  }, [onSuccess]);
+
+  //Facebook Auth
+  const handleFacebookLogin = useCallback(async () => {
+    setSocialAUthLoginLoading(true);
+    try {
+      const result = await LoginManager.logInWithPermissions([
+        "public_profile",
+        "email",
+      ]);
+
+      if (result.isCancelled) {
+        console.log("Facebook login cancelled");
+        return;
+      }
+
+      const data = await AccessToken.getCurrentAccessToken();
+      if (!data) {
+        console.log("Failed to get Facebook access token");
+        return;
+      }
+
+      const profile = await Profile.getCurrentProfile();
+      onSuccess(profile);
+    } catch (error) {
+      console.log("Facebook login error", error);
+    } finally {
+      setSocialAUthLoginLoading(false);
+    }
+  }, [onSuccess]);
+
+  return {
+    handleAppleLogin,
+    handleGoogleLogin,
+    handleFacebookLogin,
+    socialAuthLoginLoading,
+    setSocialAUthLoginLoading,
+  };
+};`,
+                fileName: 'useSocialAuth.tsx'
+            },
+            'stripe': {
+                name: 'Stripe Payment',
+                emoji: '💳',
+                description: 'Integrate Stripe Payment Sheet with @stripe/stripe-react-native. Configurable payment intent creation, customizable appearance, and supports delayed payment methods.',
+                dependencies: ['@stripe/stripe-react-native', 'react'],
+                code: `/**
+ * useStripePaymentSheet.tsx
+ *
+ * This hook is used to handle the payment sheet using Stripe.
+ * It is useful when you need to handle the payment sheet.
+ *
+ * wrap the parent component with  <StripeProvider publishableKey={publishableKey}>.
+ * publishableKey is the publishable key for the Stripe account.
+ */
+
+import { useStripe } from "@stripe/stripe-react-native";
+import { useState } from "react";
+import type { PaymentSheet } from "@stripe/stripe-react-native";
+
+type StripeColors = {
+  primary?: string;
+  background?: string;
+  componentBackground?: string;
+  componentBorder?: string;
+  componentDivider?: string;
+  primaryText?: string;
+  secondaryText?: string;
+  componentText?: string;
+  placeholderText?: string;
+  icon?: string;
+  error?: string;
+};
+
+type StripeShapes = {
+  borderRadius?: number;
+  shadow?: {
+    color?: string;
+    opacity?: number;
+    offset?: { x: number; y: number };
+  };
+};
+
+type StripeAppearance = {
+  colors?: StripeColors;
+  shapes?: StripeShapes;
+};
+
+type CreatePaymentIntentResponse = {
+  client_secret: string;
+  customer?: string;
+  [key: string]: any;
+};
+
+type UseStripePaymentSheetOptions = {
+  createPaymentIntent: (data?: any) => Promise<CreatePaymentIntentResponse>;
+  merchantDisplayName: string;
+  returnURL?: string;
+  allowsDelayedPaymentMethods?: boolean;
+  appearance?: StripeAppearance;
+  defaultErrorMessage?: string;
+};
+
+type OpenPaymentSheetOptions = {
+  paymentData?: any;
+  onSuccess?: () => void;
+  onFailure?: (error: string) => void;
+};
+
+export function useStripePaymentSheet(options: UseStripePaymentSheetOptions) {
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const [loading, setLoading] = useState(false);
+
+  const {
+    createPaymentIntent,
+    merchantDisplayName,
+    returnURL,
+    allowsDelayedPaymentMethods = true,
+    appearance,
+    defaultErrorMessage = "Payment failed. Please try again.",
+  } = options;
+
+  const openPaymentSheet = async ({
+    paymentData,
+    onSuccess,
+    onFailure,
+  }: OpenPaymentSheetOptions) => {
+    try {
+      setLoading(true);
+
+      // 1. Call backend to create PaymentIntent
+      const response = await createPaymentIntent(paymentData);
+      const paymentIntent = response?.client_secret;
+      const customerId = response?.customer;
+
+      if (!paymentIntent) {
+        throw new Error("No paymentIntent returned from server");
+      }
+
+      // 2. Init payment sheet with custom appearance
+      const initOptions: PaymentSheet.InitParams = {
+        paymentIntentClientSecret: paymentIntent,
+        merchantDisplayName,
+        allowsDelayedPaymentMethods,
+        ...(customerId && { customerId }),
+        ...(returnURL && { returnURL }),
+        ...(appearance && { appearance }),
+      };
+
+      const { error: initError } = await initPaymentSheet(initOptions);
+
+      if (initError) throw initError;
+
+      // 3. Present sheet
+      const { error: paymentError } = await presentPaymentSheet();
+
+      if (paymentError) {
+        onFailure?.(paymentError.message);
+      } else {
+        onSuccess?.();
+      }
+    } catch (err: any) {
+      const errorMessage =
+        err?.response?.data?.message ||
+        err?.message ||
+        defaultErrorMessage;
+      onFailure?.(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { openPaymentSheet, loading };
+}`,
+                fileName: 'useStripePaymentSheet.tsx'
+            }
+        };
+
+        // Hook card click handlers - navigate to page
+        document.querySelectorAll('.hook-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const hookId = this.getAttribute('data-hook');
+                if (hookId && hookData[hookId]) {
+                    navigateToHookPage(hookId);
+                }
+            });
+        });
+
+        // Hash-based routing
+        function navigateToHookPage(hookId) {
+            window.location.hash = `hook/${hookId}`;
+            showHookPage(hookId);
+        }
+
+        function showHookPage(hookId) {
+            const hook = hookData[hookId];
+            if (!hook) return;
+
+            // Show hook page and hide main content
+            document.body.classList.add('hook-page-active');
+            document.getElementById('hookPage').style.display = 'block';
+            document.getElementById('hookPageLoading').style.display = 'block';
+            document.getElementById('hookPageContent').style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Set title
+            document.getElementById('hookPageTitle').textContent = `${hook.emoji} ${hook.name}`;
+
+            // Set description
+            document.getElementById('hookPageDescription').textContent = hook.description;
+
+            // Set dependencies
+            const depsContainer = document.getElementById('hookPageDependencies');
+            depsContainer.innerHTML = hook.dependencies.map(dep => 
+                `<span class="dependency-badge">${dep}</span>`
+            ).join('');
+
+            // Load and display code
+            loadHookPageCode(hook);
+        }
+
+        function goBack() {
+            window.location.hash = '';
+            document.body.classList.remove('hook-page-active');
+            document.getElementById('hookPage').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        // Handle browser back/forward
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#hook/')) {
+                const hookId = hash.replace('#hook/', '');
+                if (hookData[hookId]) {
+                    showHookPage(hookId);
+                }
+            } else {
+                document.body.classList.remove('hook-page-active');
+                document.getElementById('hookPage').style.display = 'none';
+            }
+        });
+
+        // Check initial hash on load
+        if (window.location.hash.startsWith('#hook/')) {
+            const hookId = window.location.hash.replace('#hook/', '');
+            if (hookData[hookId]) {
+                showHookPage(hookId);
+            }
+        }
+
+        function loadHookPageCode(hook) {
+            // Use embedded code if available
+            if (hook.code) {
+                document.getElementById('hookPageFileName').textContent = hook.fileName || 'hook.tsx';
+                document.getElementById('pageCodeContent').textContent = hook.code;
+                document.getElementById('hookPageLoading').style.display = 'none';
+                document.getElementById('hookPageContent').style.display = 'block';
+            } else if (hook.files) {
+                // Fallback to fetching files if code not embedded
+                loadHookPageCodeFromFiles(hook.files);
+            } else {
+                document.getElementById('hookPageLoading').innerHTML = 
+                    '<p style="color: var(--text-light);">⚠️ Code not available for this hook.</p>';
+            }
+        }
+
+        async function loadHookPageCodeFromFiles(files) {
+            try {
+                let allCode = '';
+                let fileNames = [];
+
+                for (const file of files) {
+                    try {
+                        const response = await fetch(file.path);
+                        if (response.ok) {
+                            const code = await response.text();
+                            fileNames.push(file.name);
+                            allCode += `// ${file.name}\n${code}\n\n`;
+                        }
+                    } catch (err) {
+                        console.warn(`Could not load ${file.path}:`, err);
+                    }
+                }
+
+                if (allCode) {
+                    document.getElementById('hookPageFileName').textContent = fileNames.join(', ');
+                    document.getElementById('pageCodeContent').textContent = allCode;
+                    document.getElementById('hookPageLoading').style.display = 'none';
+                    document.getElementById('hookPageContent').style.display = 'block';
+                } else {
+                    document.getElementById('hookPageLoading').innerHTML = 
+                        '<p style="color: var(--text-light);">⚠️ Could not load code. Please check the file paths or run from a local server.</p>';
+                }
+            } catch (error) {
+                console.error('Error loading hook code:', error);
+                document.getElementById('hookPageLoading').innerHTML = 
+                    '<p style="color: var(--text-light);">⚠️ Error loading code. Make sure you are running from a local server (e.g., python -m http.server).</p>';
+            }
+        }
+
+        function copyPageCode() {
+            const code = document.getElementById('pageCodeContent').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.getElementById('copyPageBtn');
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
     </script>
 </body>
 </html>
